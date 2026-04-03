@@ -1,92 +1,44 @@
 ---
 const regions = [
-  {
-    name: 'Latin America',
-    icon: '/images/icon-latin-america.png',
-    description: '21 nations from Mexico through South America, including Honduras where INSTAR began.',
-    countries: 'Honduras, Mexico, Guatemala, El Salvador, Nicaragua, Costa Rica, Panama, Colombia, Venezuela, Ecuador, Peru, Bolivia, Chile, Argentina, Uruguay, Paraguay, Brazil',
-    color: 'from-emerald-500 to-teal-600',
-    missionaries: 'Brown-Espinoza, Crowder, K. Travis, R. Travis, Rodrigues, and more',
-  },
-  {
-    name: 'Southeast Asia',
-    icon: '/images/icon-southeast-asia.png',
-    description: 'The SEASTAR incarnation of INSTAR, bringing church planting movements to Asia.',
-    countries: 'Multiple nations across Southeast Asia',
-    color: 'from-amber-500 to-orange-600',
-    missionaries: 'Gunn, Allen',
-  },
-  {
-    name: 'Africa',
-    icon: '/images/icon-africa.png',
-    description: 'Reaching communities across the African continent with the Gospel and practical support.',
-    countries: 'South Africa and expanding regions',
-    color: 'from-rose-500 to-red-600',
-    missionaries: 'Goodnight, Tocco, Uliano, Watson',
-  },
-  {
-    name: 'North America',
-    icon: '/images/icon-north-america.png',
-    description: 'Ministry to indigenous communities and underserved populations across the continent.',
-    countries: 'United States, including Native American communities',
-    color: 'from-blue-500 to-indigo-600',
-    missionaries: 'Allen, God\'s Promises, Jim & Cindy Lilly, and more',
-  },
-  {
-    name: 'Caribbean',
-    icon: '/images/events-icon.png',
-    description: 'Island nations receiving church planting training and community development support.',
-    countries: 'Caribbean Islands',
-    color: 'from-violet-500 to-purple-600',
-    missionaries: 'David Fackler, Elbin Castillo',
-  },
+  { name: 'Latin America', icon: '/images/icon-latin-america.png', desc: '21 nations from Mexico through South America — where INSTAR began in Honduras.', missionaries: 'Brown-Espinoza, Crowder, Travis, Rodrigues', color: 'from-emerald-400 to-teal-500' },
+  { name: 'Southeast Asia', icon: '/images/icon-southeast-asia.png', desc: 'The SEASTAR incarnation bringing church planting movements across Asia.', missionaries: 'Gunn, Allen', color: 'from-amber-400 to-orange-500' },
+  { name: 'Africa', icon: '/images/icon-africa.png', desc: 'Reaching communities with the Gospel and practical support across the continent.', missionaries: 'Goodnight, Tocco, Uliano, Watson', color: 'from-rose-400 to-red-500' },
+  { name: 'North America', icon: '/images/icon-north-america.png', desc: 'Ministry to indigenous communities and underserved populations.', missionaries: 'Allen, God\'s Promises, Lilly', color: 'from-blue-400 to-indigo-500' },
+  { name: 'Caribbean', icon: '/images/events-icon.png', desc: 'Island nations receiving church planting training and community development.', missionaries: 'Fackler, Castillo', color: 'from-violet-400 to-purple-500' },
 ];
 ---
 
-<section id="regions" class="section-padding bg-white relative overflow-hidden">
-  <div class="container-wide">
+<section id="regions" class="py-28 md:py-36 relative">
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
+
+  <div class="section-container">
     <div class="text-center mb-16 reveal">
-      <span class="label-text text-gold-600 mb-4 block">Where We Serve</span>
-      <h2 class="heading-lg text-navy-900 mb-4">
-        Five Regions. <span class="text-gold-600">One Mission.</span>
+      <div class="label-text mb-5">Where We Serve</div>
+      <h2 class="heading-section text-white mb-4">
+        Five regions. <span class="gradient-text">One mission.</span>
       </h2>
-      <p class="body-md text-navy-500 max-w-2xl mx-auto">
-        From the mountains of Honduras to the islands of the Caribbean, W.M.E. is actively
-        planting churches and training leaders across the globe.
+      <p class="body-md max-w-xl mx-auto">
+        From the mountains of Honduras to the islands of the Caribbean.
       </p>
     </div>
 
-    <!-- Region map image -->
-    <div class="mb-16 reveal">
-      <div class="relative max-w-4xl mx-auto">
-        <div class="rounded-3xl overflow-hidden shadow-2xl shadow-navy-900/10 border border-navy-100">
-          <img
-            src="/images/instar-goal-map.jpg"
-            alt="INSTAR Global Reach Map"
-            class="w-full h-auto"
-            loading="lazy"
-          />
-        </div>
-      </div>
-    </div>
-
-    <!-- Region cards -->
-    <div class="flex flex-wrap justify-center gap-6 stagger-children">
-      {regions.map((region, i) => (
-        <div class="card group w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]">
-          <div class={`h-2 bg-gradient-to-r ${region.color}`}></div>
-          <div class="p-8">
-            <div class="flex items-center gap-4 mb-4">
-              <div class="w-14 h-14 rounded-xl bg-navy-50 p-2 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <img src={region.icon} alt={region.name} class="w-10 h-10 object-contain" loading="lazy" />
-              </div>
-              <h3 class="heading-sm text-navy-900">{region.name}</h3>
+    <!-- Region cards — flex wrap centered -->
+    <div class="flex flex-wrap justify-center gap-4 stagger">
+      {regions.map((region) => (
+        <div class="floating-card-hover w-full md:w-[calc(50%-8px)] lg:w-[calc(33.333%-11px)] p-6 group">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-11 h-11 rounded-lg bg-white/[0.04] p-2 flex items-center justify-center group-hover:bg-white/[0.08] transition-colors">
+              <img src={region.icon} alt={region.name} class="w-7 h-7 object-contain opacity-70 group-hover:opacity-100 transition-opacity" loading="lazy" />
             </div>
-            <p class="text-navy-600 mb-4 leading-relaxed">{region.description}</p>
-            <div class="pt-4 border-t border-navy-100/50">
-              <span class="text-xs font-semibold text-navy-400 uppercase tracking-wider">Key Missionaries</span>
-              <p class="text-sm text-navy-500 mt-1">{region.missionaries}</p>
+            <div>
+              <h3 class="text-white font-semibold tracking-tight">{region.name}</h3>
+              <div class={`h-0.5 w-8 rounded-full bg-gradient-to-r ${region.color} mt-1`}></div>
             </div>
+          </div>
+          <p class="text-slate-400 text-sm leading-relaxed mb-4">{region.desc}</p>
+          <div class="pt-3 border-t border-white/[0.04]">
+            <span class="text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-600">Key missionaries</span>
+            <p class="text-slate-500 text-xs mt-0.5">{region.missionaries}</p>
           </div>
         </div>
       ))}
@@ -94,22 +46,27 @@ const regions = [
 
     <!-- Last Tribe callout -->
     <div class="mt-16 reveal">
-      <div class="bg-gradient-to-r from-navy-950 to-navy-800 rounded-3xl p-10 md:p-14 text-white relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-64 h-64 bg-gold-500/10 rounded-full blur-3xl"></div>
-        <div class="relative z-10 max-w-3xl">
-          <span class="label-text text-gold-400 mb-4 block">The Last Tribe Initiative</span>
-          <h3 class="heading-md text-white mb-4">Reaching the Unreached</h3>
-          <p class="body-md text-white/60 mb-6">
-            Some communities have never heard the Gospel &mdash; not even once. The Last Tribe Initiative
-            maps, researches, and deploys trained missionaries to the most remote and unreached people
-            groups on earth, building coalitions with other missions agencies to ensure no tribe is forgotten.
-          </p>
-          <a href="#give" class="btn-primary">
-            Support This Mission
-            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
-            </svg>
-          </a>
+      <div class="relative overflow-hidden rounded-xl">
+        <!-- Background image -->
+        <div class="absolute inset-0">
+          <img src="/images/community-prayer.jpg" alt="" class="img-cinematic opacity-20" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-r from-surface-0/95 via-surface-0/80 to-surface-0/95"></div>
+        </div>
+        <div class="relative z-10 p-10 md:p-14">
+          <div class="max-w-2xl">
+            <div class="label-text mb-4">The Last Tribe Initiative</div>
+            <h3 class="heading-card text-white mb-4">Reaching the unreached</h3>
+            <p class="body-sm text-slate-400 mb-6 max-w-lg">
+              Some communities have never heard the Gospel. The Last Tribe Initiative maps, researches, and deploys
+              trained missionaries to the most remote people groups on earth.
+            </p>
+            <a href="#give" class="btn-primary">
+              Support This Mission
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
     </div>

@@ -32,6 +32,7 @@ const {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
   <body class="antialiased">
+    <div class="mesh-bg" aria-hidden="true"></div>
     <slot />
 
     <!-- Scroll reveal observer -->
@@ -47,7 +48,7 @@ const {
         { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
       );
 
-      document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .stagger-children').forEach((el) => {
+      document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .stagger').forEach((el) => {
         observer.observe(el);
       });
 

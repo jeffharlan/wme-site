@@ -1,90 +1,74 @@
 ---
 const pillars = [
-  {
-    icon: `<svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" /></svg>`,
-    title: 'Intercession & Identification',
-    description: 'Prayer mobilization and region mapping to understand the spiritual landscape and needs of every community we enter.',
-    number: '01',
-  },
-  {
-    icon: `<svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" /></svg>`,
-    title: 'Networking',
-    description: 'Building partnerships with existing evangelical ministries to create a united front in reaching the unreached.',
-    number: '02',
-  },
-  {
-    icon: `<svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" /></svg>`,
-    title: 'Serving',
-    description: 'Meeting tangible community needs through water, medical, orphan care, and education programs that open doors for the Gospel.',
-    number: '03',
-  },
-  {
-    icon: `<svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" /></svg>`,
-    title: 'Training',
-    description: 'Church planting and disciple-making curriculum with hands-on mentoring — equipping leaders who equip others.',
-    number: '04',
-  },
-  {
-    icon: `<svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" /></svg>`,
-    title: 'Assisting & Reporting',
-    description: 'Ongoing field support with transparent documentation and progress tracking to ensure lasting, accountable growth.',
-    number: '05',
-  },
+  { num: '01', title: 'Intercession', subtitle: 'Prayer & Identification', desc: 'Prayer mobilization and region mapping to understand the spiritual landscape of every community we enter.' },
+  { num: '02', title: 'Networking', subtitle: 'Strategic Partnerships', desc: 'Building partnerships with existing evangelical ministries to create a united front in reaching the unreached.' },
+  { num: '03', title: 'Serving', subtitle: 'Meeting Real Needs', desc: 'Water, medical, orphan care, and education programs that open doors for the Gospel and demonstrate God\'s love.' },
+  { num: '04', title: 'Training', subtitle: 'Equipping Leaders', desc: 'Church planting and disciple-making curriculum with hands-on mentoring — equipping leaders who equip others.' },
+  { num: '05', title: 'Assisting', subtitle: 'Ongoing Support', desc: 'Field support with transparent documentation and progress tracking to ensure lasting, accountable growth.' },
 ];
 ---
 
-<section id="instar" class="section-padding bg-warm-50 relative overflow-hidden">
-  <div class="absolute bottom-0 left-0 w-1/2 h-1/2 bg-gradient-to-tr from-gold-100/50 to-transparent"></div>
+<section id="instar" class="py-28 md:py-36 relative">
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
 
-  <div class="container-wide relative">
-    <div class="grid lg:grid-cols-5 gap-12 lg:gap-20 items-start">
-      <!-- Left intro (2 cols) -->
-      <div class="lg:col-span-2 lg:sticky lg:top-32 reveal-left">
-        <span class="label-text text-gold-600 mb-4 block">The INSTAR Initiative</span>
-        <h2 class="heading-lg text-navy-900 mb-6">
-          A Strategy to Reach <span class="text-gold-600">Every Nation</span>
-        </h2>
-        <p class="body-md text-navy-600 mb-6">
-          Launched in Honduras in 2008 as a "laboratory" for church planting, the INSTAR project proved
-          that reproducing churches could reach entire regions. By 2012, 266 groups had formed. Within
-          five more years, that number exploded to over <strong class="text-navy-800">6,000</strong>.
-        </p>
-        <p class="body-md text-navy-600 mb-8">
-          INSTAR's goal is the full evangelization of all of Mexico, Central and South America, the
-          Caribbean Islands, and beyond &mdash; reaching over <strong class="text-navy-800">1,400 people groups</strong>,
-          including 700,000 people in least-reached communities.
-        </p>
+  <div class="section-container">
+    <!-- Header -->
+    <div class="max-w-3xl mb-20 reveal">
+      <div class="label-text mb-5">The INSTAR Initiative</div>
+      <h2 class="heading-section text-white mb-6">
+        A proven strategy to reach<br />
+        <span class="gradient-text">every nation.</span>
+      </h2>
+      <p class="body-lg">
+        Launched in Honduras in 2008, INSTAR proved that reproducing churches could reach entire regions.
+        From 266 groups in 2012 to over <span class="text-white font-medium">6,000+</span> today, the model works.
+      </p>
+    </div>
 
-        <div class="flex items-center gap-4 p-5 bg-white rounded-2xl shadow-sm border border-navy-100/50">
-          <img src="/images/instar-blue.jpg" alt="INSTAR" class="h-12 w-auto rounded-lg object-contain" />
-          <div>
-            <div class="font-semibold text-navy-900 text-sm">Training provided to</div>
-            <div class="text-gold-600 font-bold text-lg">50+ denominations & organizations</div>
+    <!-- Two-column: Pillars + Visual -->
+    <div class="grid lg:grid-cols-5 gap-12 lg:gap-8">
+      <!-- Pillars -->
+      <div class="lg:col-span-3 space-y-3 stagger">
+        {pillars.map((p) => (
+          <div class="floating-card-hover p-6 group">
+            <div class="flex items-start gap-5">
+              <div class="text-amber-400/30 font-mono text-xs font-bold mt-1 w-6 flex-shrink-0">{p.num}</div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-baseline gap-3 mb-1.5">
+                  <h3 class="text-white font-semibold tracking-tight">{p.title}</h3>
+                  <span class="text-slate-600 text-[13px] hidden sm:inline">{p.subtitle}</span>
+                </div>
+                <p class="text-slate-400 text-sm leading-relaxed">{p.desc}</p>
+              </div>
+              <svg class="w-4 h-4 text-slate-700 group-hover:text-amber-400 transition-colors flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+              </svg>
+            </div>
           </div>
-        </div>
+        ))}
       </div>
 
-      <!-- Right: 5 pillars (3 cols) -->
-      <div class="lg:col-span-3 stagger-children">
-        <div class="space-y-5">
-          {pillars.map((pillar) => (
-            <div class="bg-white rounded-2xl p-8 shadow-sm border border-navy-100/30 hover:shadow-lg hover:shadow-navy-900/5 transition-all duration-500 group hover:-translate-y-0.5">
-              <div class="flex gap-6 items-start">
-                <div class="flex-shrink-0">
-                  <div class="w-14 h-14 rounded-xl bg-navy-950 text-gold-400 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <Fragment set:html={pillar.icon} />
-                  </div>
-                </div>
-                <div class="flex-1">
-                  <div class="flex items-center gap-3 mb-2">
-                    <span class="text-gold-400/60 font-mono text-xs">{pillar.number}</span>
-                    <h3 class="font-display text-xl text-navy-900">{pillar.title}</h3>
-                  </div>
-                  <p class="text-navy-600 leading-relaxed">{pillar.description}</p>
-                </div>
-              </div>
-            </div>
-          ))}
+      <!-- Right side: Key stats + image -->
+      <div class="lg:col-span-2 reveal-right">
+        <!-- INSTAR map -->
+        <div class="floating-card overflow-hidden rounded-xl mb-4">
+          <img src="/images/instar-goal-map.jpg" alt="INSTAR Global Reach" class="w-full h-auto" loading="lazy" />
+          <div class="p-5">
+            <div class="text-[11px] font-semibold uppercase tracking-[0.15em] text-slate-500 mb-2">INSTAR Coverage</div>
+            <p class="text-slate-400 text-sm">21 nations across Latin America, the Caribbean, Southeast Asia, Africa, and North America.</p>
+          </div>
+        </div>
+
+        <!-- Key metrics -->
+        <div class="grid grid-cols-2 gap-3">
+          <div class="floating-card p-5 text-center">
+            <div class="text-2xl font-extrabold text-white tracking-tight">1,400<span class="text-amber-400">+</span></div>
+            <div class="text-[11px] font-semibold uppercase tracking-[0.15em] text-slate-500 mt-1">People Groups</div>
+          </div>
+          <div class="floating-card p-5 text-center">
+            <div class="text-2xl font-extrabold text-white tracking-tight">50<span class="text-amber-400">+</span></div>
+            <div class="text-[11px] font-semibold uppercase tracking-[0.15em] text-slate-500 mt-1">Denominations Trained</div>
+          </div>
         </div>
       </div>
     </div>
