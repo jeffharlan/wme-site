@@ -3,9 +3,13 @@ import { db } from '../lib/db';
 import { events } from '../lib/schema';
 import { eq, desc } from 'drizzle-orm';
 
-// Get the most recent active event
-const activeEvents = await db.select().from(events).where(eq(events.isActive, true)).orderBy(desc(events.createdAt)).limit(1);
-const event = activeEvents[0];
+let event: any = null;
+try {
+  const activeEvents = await db.select().from(events).where(eq(events.isActive, true)).orderBy(desc(events.createdAt)).limit(1);
+  event = activeEvents[0] || null;
+} catch {
+  // DB not available — show fallback
+}
 
 const formattedDate = event?.eventDate
   ? new Date(event.eventDate + 'T00:00:00').toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
