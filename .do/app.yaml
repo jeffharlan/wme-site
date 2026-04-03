@@ -1,0 +1,10 @@
+name: wme-site
+region: nyc
+static_sites:
+  - name: wme
+    build_command: npm install && npx astro build
+    output_dir: dist
+    source_dir: /
+    environment_slug: node-js
+    routes:
+      - path: /

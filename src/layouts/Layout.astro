@@ -1,0 +1,89 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'World Missions & Evangelism — Planting Churches. Reaching Nations.',
+  description = 'World Missions & Evangelism exists to facilitate church planting movements and disciple making movements across Latin America, Southeast Asia, Africa, and beyond. Founded in 1988.',
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#102a43" />
+    <link rel="icon" type="image/png" href="/images/wme-logo.png" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/images/wme-logo.png" />
+
+    <title>{title}</title>
+
+    <!-- Preload fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+  <body class="antialiased">
+    <slot />
+
+    <!-- Scroll reveal observer -->
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        },
+        { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+      );
+
+      document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .stagger-children').forEach((el) => {
+        observer.observe(el);
+      });
+
+      // Counter animation
+      function animateCounters() {
+        document.querySelectorAll('[data-count]').forEach((el) => {
+          const target = parseInt(el.getAttribute('data-count') || '0');
+          const duration = 2000;
+          const start = performance.now();
+
+          function update(now: number) {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const current = Math.floor(eased * target);
+            el.textContent = current.toLocaleString() + (el.getAttribute('data-suffix') || '');
+            if (progress < 1) requestAnimationFrame(update);
+          }
+          requestAnimationFrame(update);
+        });
+      }
+
+      const counterObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              animateCounters();
+              counterObserver.disconnect();
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+
+      const counterSection = document.getElementById('impact');
+      if (counterSection) counterObserver.observe(counterSection);
+    </script>
+  </body>
+</html>

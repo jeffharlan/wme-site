@@ -1,0 +1,91 @@
+[2026-04-03T18:11:47.239Z] [debug] [vite] connecting...
+[2026-04-03T18:11:47.381Z] [debug] [vite] connected.
+[2026-04-03T18:12:27.454Z] [log] [vite] server connection lost. Polling for restart...
+[2026-04-03T18:12:27.456Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:28.454Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:29.457Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:30.460Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:31.462Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:32.464Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:33.467Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:34.471Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:35.475Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:36.479Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:37.482Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:38.486Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:39.498Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:40.509Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:41.528Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:42.541Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:43.572Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:44.613Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:45.693Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:46.754Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:48.090Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:48.227Z] [error] Failed to load resource: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:48.227Z] [error] Failed to load resource: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:48.227Z] [error] Failed to load resource: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:48.227Z] [error] Failed to load resource: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:48.228Z] [error] Failed to load resource: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:48.228Z] [error] Failed to load resource: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:49.366Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:49.436Z] [error] Failed to load resource: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:49.436Z] [error] Failed to load resource: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:49.437Z] [error] Failed to load resource: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:49.437Z] [error] Failed to load resource: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:50.580Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:50.972Z] [error] Failed to load resource: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:50.972Z] [error] %cAstro background: linear-gradient(66.77deg, #D83333 0%, #F041FF 100%); color: white; padding-inline: 4px; border-radius: 2px; font-family: monospace; Error while running audit's match function: TypeError: Failed to fetch
+[2026-04-03T18:12:50.974Z] [error] Failed to load resource: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:50.974Z] [error] %cAstro background: linear-gradient(66.77deg, #D83333 0%, #F041FF 100%); color: white; padding-inline: 4px; border-radius: 2px; font-family: monospace; Error while running audit's match function: TypeError: Failed to fetch
+[2026-04-03T18:12:50.976Z] [error] Failed to load resource: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:50.976Z] [error] %cAstro background: linear-gradient(66.77deg, #D83333 0%, #F041FF 100%); color: white; padding-inline: 4px; border-radius: 2px; font-family: monospace; Error while running audit's match function: TypeError: Failed to fetch
+[2026-04-03T18:12:50.977Z] [error] Failed to load resource: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:50.977Z] [error] %cAstro background: linear-gradient(66.77deg, #D83333 0%, #F041FF 100%); color: white; padding-inline: 4px; border-radius: 2px; font-family: monospace; Error while running audit's match function: TypeError: Failed to fetch
+[2026-04-03T18:12:50.980Z] [error] Failed to load resource: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:50.981Z] [error] %cAstro background: linear-gradient(66.77deg, #D83333 0%, #F041FF 100%); color: white; padding-inline: 4px; border-radius: 2px; font-family: monospace; Error while running audit's match function: TypeError: Failed to fetch
+[2026-04-03T18:12:50.983Z] [error] Failed to load resource: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:50.983Z] [error] %cAstro background: linear-gradient(66.77deg, #D83333 0%, #F041FF 100%); color: white; padding-inline: 4px; border-radius: 2px; font-family: monospace; Error while running audit's match function: TypeError: Failed to fetch
+[2026-04-03T18:12:50.983Z] [error] Failed to load resource: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:50.983Z] [error] %cAstro background: linear-gradient(66.77deg, #D83333 0%, #F041FF 100%); color: white; padding-inline: 4px; border-radius: 2px; font-family: monospace; Error while running audit's match function: TypeError: Failed to fetch
+[2026-04-03T18:12:50.983Z] [error] Failed to load resource: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:50.983Z] [error] %cAstro background: linear-gradient(66.77deg, #D83333 0%, #F041FF 100%); color: white; padding-inline: 4px; border-radius: 2px; font-family: monospace; Error while running audit's match function: TypeError: Failed to fetch
+[2026-04-03T18:12:50.983Z] [error] Failed to load resource: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:50.983Z] [error] %cAstro background: linear-gradient(66.77deg, #D83333 0%, #F041FF 100%); color: white; padding-inline: 4px; border-radius: 2px; font-family: monospace; Error while running audit's match function: TypeError: Failed to fetch
+[2026-04-03T18:12:50.984Z] [error] Failed to load resource: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:50.984Z] [error] %cAstro background: linear-gradient(66.77deg, #D83333 0%, #F041FF 100%); color: white; padding-inline: 4px; border-radius: 2px; font-family: monospace; Error while running audit's match function: TypeError: Failed to fetch
+[2026-04-03T18:12:50.984Z] [error] Failed to load resource: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:50.984Z] [error] %cAstro background: linear-gradient(66.77deg, #D83333 0%, #F041FF 100%); color: white; padding-inline: 4px; border-radius: 2px; font-family: monospace; Error while running audit's match function: TypeError: Failed to fetch
+[2026-04-03T18:12:50.985Z] [error] Failed to load resource: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:50.985Z] [error] %cAstro background: linear-gradient(66.77deg, #D83333 0%, #F041FF 100%); color: white; padding-inline: 4px; border-radius: 2px; font-family: monospace; Error while running audit's match function: TypeError: Failed to fetch
+[2026-04-03T18:12:50.985Z] [error] Failed to load resource: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:50.985Z] [error] %cAstro background: linear-gradient(66.77deg, #D83333 0%, #F041FF 100%); color: white; padding-inline: 4px; border-radius: 2px; font-family: monospace; Error while running audit's match function: TypeError: Failed to fetch
+[2026-04-03T18:12:50.986Z] [error] Failed to load resource: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:50.986Z] [error] %cAstro background: linear-gradient(66.77deg, #D83333 0%, #F041FF 100%); color: white; padding-inline: 4px; border-radius: 2px; font-family: monospace; Error while running audit's match function: TypeError: Failed to fetch
+[2026-04-03T18:12:51.783Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:53.366Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:54.537Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:56.210Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:12:58.022Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:13:01.255Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:13:04.278Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:13:09.567Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:13:14.481Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:13:17.581Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:13:19.809Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:13:23.846Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:13:26.697Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:13:31.391Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:13:37.384Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:13:39.404Z] [error] WebSocket connection to 'ws://localhost:4321/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED
+[2026-04-03T18:13:55.241Z] [debug] [vite] connecting...
+[2026-04-03T18:13:55.258Z] [debug] [vite] connected.
+[2026-04-03T18:16:23.702Z] [debug] [vite] connecting...
+[2026-04-03T18:16:23.710Z] [debug] [vite] connected.
+[2026-04-03T18:16:30.130Z] [debug] [vite] connecting...
+[2026-04-03T18:16:30.208Z] [debug] [vite] connected.
+[2026-04-03T18:17:08.983Z] [debug] [vite] connecting...
+[2026-04-03T18:17:09.017Z] [debug] [vite] connected.
+[2026-04-03T18:17:16.441Z] [debug] [vite] hot updated: /src/components/Navbar.astro?astro&type=style&index=0&lang.css
+[2026-04-03T18:17:21.687Z] [debug] [vite] connecting...
+[2026-04-03T18:17:21.714Z] [debug] [vite] connected.

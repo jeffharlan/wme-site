@@ -1,0 +1,53 @@
+---
+const stats = [
+  { number: 6132, suffix: '+', label: 'Churches & Bible Studies', description: 'Active discovery groups and new churches planted across the globe' },
+  { number: 23000, suffix: '+', label: 'Lives Committed', description: 'People who have committed their lives to Christ' },
+  { number: 18000, suffix: '+', label: 'Baptisms', description: 'Believers publicly declaring their faith through baptism' },
+  { number: 34000, suffix: '+', label: 'Participants', description: 'Total people engaged in studies, groups, and training programs' },
+];
+---
+
+<section id="impact" class="relative py-28 md:py-36 overflow-hidden">
+  <!-- Background -->
+  <div class="absolute inset-0 bg-gradient-to-br from-navy-950 via-navy-900 to-navy-950"></div>
+  <div class="absolute inset-0 opacity-[0.03]" style="background-image: url(&quot;data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E&quot;);"></div>
+
+  <!-- Gold accent glow -->
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-gold-500/5 rounded-full blur-3xl"></div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-6 md:px-12">
+    <div class="text-center mb-16 reveal">
+      <span class="label-text text-gold-400 mb-4 block">By The Numbers</span>
+      <h2 class="heading-lg text-white mb-4">
+        Real Impact. <span class="text-gold-400">Real Lives.</span>
+      </h2>
+      <p class="body-md text-white/50 max-w-xl mx-auto">
+        Measured across the first nine years of our INSTAR initiative alone.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+      {stats.map((stat) => (
+        <div class="text-center p-8 rounded-2xl bg-white/[0.03] border border-white/[0.06] backdrop-blur-sm hover:bg-white/[0.06] transition-all duration-500 group">
+          <div class="counter font-display text-4xl md:text-5xl lg:text-6xl text-white mb-3 group-hover:text-gold-400 transition-colors duration-300" data-count={stat.number} data-suffix={stat.suffix}>
+            0{stat.suffix}
+          </div>
+          <div class="text-gold-400 font-semibold text-sm uppercase tracking-wider mb-2">
+            {stat.label}
+          </div>
+          <p class="text-white/40 text-sm leading-relaxed">
+            {stat.description}
+          </p>
+        </div>
+      ))}
+    </div>
+
+    <!-- Scripture -->
+    <div class="mt-16 text-center reveal">
+      <p class="text-white/30 italic max-w-2xl mx-auto body-md">
+        "For the kingdom of God is not a matter of eating & drinking but of righteousness, peace & joy in the Holy Spirit."
+      </p>
+      <span class="text-gold-500/50 text-sm mt-3 block">&mdash; Romans 14:17 ESV</span>
+    </div>
+  </div>
+</section>
