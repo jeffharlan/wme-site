@@ -1,0 +1,80 @@
+---
+export const prerender = false;
+
+import '../../styles/admin.css';
+
+// If already logged in, redirect to dashboard
+if (Astro.locals.user) {
+  return Astro.redirect('/admin');
+}
+
+const error = Astro.url.searchParams.get('error');
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Sign In — WME Admin</title>
+  <link rel="icon" type="image/png" href="/images/wme-logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>* { margin: 0; padding: 0; box-sizing: border-box; } body { font-family: 'Inter', system-ui, sans-serif; cursor: auto; }</style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-card">
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <img src="/images/wme-logo.png" alt="WME" style="height: 40px; filter: brightness(0) invert(1); opacity: 0.6; margin-bottom: 1.25rem;" />
+        <h1 style="color: white; font-size: 1.25rem; font-weight: 700; margin-bottom: 0.25rem;">Welcome back</h1>
+        <p style="color: rgba(255,255,255,0.35); font-size: 0.8125rem;">Sign in to manage your ministry</p>
+      </div>
+
+      {error && (
+        <div style="background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); border-radius: 0.5rem; padding: 0.75rem 1rem; margin-bottom: 1.25rem; color: #f87171; font-size: 0.8125rem;">
+          {error === 'invalid' && 'Invalid username or password.'}
+          {error === 'rate_limit' && 'Too many attempts. Please wait 15 minutes.'}
+          {error === 'totp_required' && 'Please enter your 2FA code.'}
+          {error === 'totp_invalid' && 'Invalid 2FA code. Please try again.'}
+        </div>
+      )}
+
+      <form method="POST" action="/api/auth/login" id="login-form">
+        <div style="margin-bottom: 1rem;">
+          <label class="admin-label">Username</label>
+          <input type="text" name="username" required autocomplete="username" class="admin-input" placeholder="Enter your username" />
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+          <label class="admin-label">Password</label>
+          <input type="password" name="password" required autocomplete="current-password" class="admin-input" placeholder="Enter your password" />
+        </div>
+
+        <div id="totp-field" style="display: none; margin-bottom: 1.5rem;">
+          <label class="admin-label">2FA Code</label>
+          <input type="text" name="totp_code" autocomplete="one-time-code" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" class="admin-input" placeholder="6-digit code from your authenticator" />
+        </div>
+
+        <button type="submit" class="admin-btn admin-btn-primary" style="width: 100%; justify-content: center;">
+          Sign In
+        </button>
+      </form>
+
+      <div style="text-align: center; margin-top: 1.5rem;">
+        <a href="/" style="color: rgba(255,255,255,0.3); font-size: 0.75rem; text-decoration: none;">← Back to website</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Show TOTP field if redirected with totp_required
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('error') === 'totp_required' || params.get('error') === 'totp_invalid') {
+      const totpField = document.getElementById('totp-field');
+      if (totpField) totpField.style.display = 'block';
+    }
+  </script>
+</body>
+</html>

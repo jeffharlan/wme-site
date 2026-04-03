@@ -1,0 +1,47 @@
+---
+export const prerender = false;
+
+import AdminLayout from '../../../components/admin/AdminLayout.astro';
+import { db } from '../../../lib/db';
+import { events, registrations } from '../../../lib/schema';
+import { desc, count } from 'drizzle-orm';
+
+const allEvents = await db.select().from(events).orderBy(desc(events.createdAt));
+const regCounts = await db.select({ eventId: registrations.eventId, count: count() }).from(registrations).groupBy(registrations.eventId);
+const regMap = Object.fromEntries(regCounts.map(r => [r.eventId, r.count]));
+---
+
+<AdminLayout title="Events" activeNav="events">
+  <div style="display: flex; justify-content: flex-end; margin-bottom: 1.5rem;">
+    <a href="/admin/events/new" class="admin-btn admin-btn-primary">+ New Event</a>
+  </div>
+
+  {allEvents.length === 0 ? (
+    <div class="admin-card" style="text-align: center; padding: 3rem;">
+      <p style="color: #6b7280; margin-bottom: 1rem;">No events yet.</p>
+      <a href="/admin/events/new" class="admin-btn admin-btn-primary">Create Your First Event</a>
+    </div>
+  ) : (
+    <div style="display: grid; gap: 1rem;">
+      {allEvents.map(event => (
+        <div class="admin-card" style="display: flex; align-items: center; justify-content: space-between;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.25rem;">
+              <span style="color: #111827; font-weight: 600;">{event.title}</span>
+              <span class={`admin-badge ${event.isActive ? 'admin-badge-green' : 'admin-badge-gray'}`}>
+                {event.isActive ? 'Active' : 'Inactive'}
+              </span>
+            </div>
+            <div style="color: #6b7280; font-size: 0.8125rem;">
+              {event.eventDate || 'No date set'} · {event.location || 'No location'} · {regMap[event.id] || 0} registrations
+            </div>
+          </div>
+          <div style="display: flex; gap: 0.5rem;">
+            <a href={`/admin/events/${event.id}/registrations`} class="admin-btn admin-btn-ghost" style="font-size: 0.75rem; padding: 0.375rem 0.75rem;">Registrations</a>
+            <a href={`/admin/events/${event.id}`} class="admin-btn admin-btn-ghost" style="font-size: 0.75rem; padding: 0.375rem 0.75rem;">Edit</a>
+          </div>
+        </div>
+      ))}
+    </div>
+  )}
+</AdminLayout>

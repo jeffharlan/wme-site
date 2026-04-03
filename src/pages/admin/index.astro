@@ -1,0 +1,74 @@
+---
+export const prerender = false;
+
+import AdminLayout from '../../components/admin/AdminLayout.astro';
+import { db } from '../../lib/db';
+import { events, registrations } from '../../lib/schema';
+import { eq, desc, count } from 'drizzle-orm';
+
+const allEvents = await db.select().from(events).orderBy(desc(events.createdAt));
+const regCounts = await db.select({ eventId: registrations.eventId, count: count() }).from(registrations).groupBy(registrations.eventId);
+const regMap = Object.fromEntries(regCounts.map(r => [r.eventId, r.count]));
+const totalRegistrations = regCounts.reduce((sum, r) => sum + r.count, 0);
+---
+
+<AdminLayout title="Dashboard" activeNav="dashboard">
+  <!-- Stats -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+    <div class="admin-card">
+      <div style="color: #6b7280; font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.5rem;">Total Events</div>
+      <div style="color: #111827; font-size: 2rem; font-weight: 800; letter-spacing: -0.02em;">{allEvents.length}</div>
+    </div>
+    <div class="admin-card">
+      <div style="color: #6b7280; font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.5rem;">Active Events</div>
+      <div style="color: #111827; font-size: 2rem; font-weight: 800; letter-spacing: -0.02em;">{allEvents.filter(e => e.isActive).length}</div>
+    </div>
+    <div class="admin-card">
+      <div style="color: #6b7280; font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.5rem;">Total Registrations</div>
+      <div style="color: #111827; font-size: 2rem; font-weight: 800; letter-spacing: -0.02em;">{totalRegistrations}</div>
+    </div>
+  </div>
+
+  <!-- Recent events -->
+  <div class="admin-card">
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+      <h2 style="color: #111827; font-size: 1rem; font-weight: 600;">Events</h2>
+      <a href="/admin/events/new" class="admin-btn admin-btn-primary" style="font-size: 0.8125rem; padding: 0.5rem 1rem;">
+        + New Event
+      </a>
+    </div>
+
+    {allEvents.length === 0 ? (
+      <p style="color: #6b7280; font-size: 0.875rem; text-align: center; padding: 2rem;">No events yet. Create your first event to get started.</p>
+    ) : (
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Registrations</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {allEvents.map(event => (
+            <tr>
+              <td style="color: #111827; font-weight: 500;">{event.title}</td>
+              <td>{event.eventDate || '—'}</td>
+              <td>
+                <span class={`admin-badge ${event.isActive ? 'admin-badge-green' : 'admin-badge-gray'}`}>
+                  {event.isActive ? 'Active' : 'Inactive'}
+                </span>
+              </td>
+              <td>{regMap[event.id] || 0}</td>
+              <td>
+                <a href={`/admin/events/${event.id}`} style="color: #d4a017; font-size: 0.8125rem; text-decoration: none;">Manage →</a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    )}
+  </div>
+</AdminLayout>

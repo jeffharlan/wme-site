@@ -1,0 +1,49 @@
+---
+export const prerender = false;
+
+import AdminLayout from '../../../components/admin/AdminLayout.astro';
+
+const error = Astro.url.searchParams.get('error');
+---
+
+<AdminLayout title="Create Event" activeNav="events">
+  <div style="max-width: 600px;">
+    {error && (
+      <div style="background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); border-radius: 0.5rem; padding: 0.75rem 1rem; margin-bottom: 1.25rem; color: #f87171; font-size: 0.8125rem;">
+        {error === 'missing' && 'Event title is required.'}
+      </div>
+    )}
+
+    <form method="POST" action="/api/events" class="admin-card">
+      <div style="margin-bottom: 1.25rem;">
+        <label class="admin-label">Event Title *</label>
+        <input type="text" name="title" required class="admin-input" placeholder="e.g. Spring Banquet 2026" />
+      </div>
+
+      <div style="margin-bottom: 1.25rem;">
+        <label class="admin-label">Description</label>
+        <textarea name="description" rows="3" class="admin-input" placeholder="Brief description of the event" style="resize: vertical;"></textarea>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem;">
+        <div>
+          <label class="admin-label">Event Date</label>
+          <input type="date" name="event_date" class="admin-input" />
+        </div>
+        <div>
+          <label class="admin-label">Location</label>
+          <input type="text" name="location" class="admin-input" placeholder="e.g. Benton, Kentucky" />
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
+        <a href="/admin/events" class="admin-btn admin-btn-ghost">Cancel</a>
+        <button type="submit" class="admin-btn admin-btn-primary">Create Event</button>
+      </div>
+    </form>
+
+    <p style="color: #9ca3af; font-size: 0.75rem; margin-top: 1rem;">
+      After creating the event, you'll be able to add registration form fields.
+    </p>
+  </div>
+</AdminLayout>

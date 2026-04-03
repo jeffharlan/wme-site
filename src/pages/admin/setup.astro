@@ -1,0 +1,73 @@
+---
+export const prerender = false;
+
+import '../../styles/admin.css';
+import { getUserCount } from '../../lib/auth';
+
+const userCount = await getUserCount();
+if (userCount > 0) {
+  return Astro.redirect('/admin/login');
+}
+
+const error = Astro.url.searchParams.get('error');
+const success = Astro.url.searchParams.get('success');
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Setup — WME Admin</title>
+  <link rel="icon" type="image/png" href="/images/wme-logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>* { margin: 0; padding: 0; box-sizing: border-box; } body { font-family: 'Inter', system-ui, sans-serif; cursor: auto; }</style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-card">
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <img src="/images/wme-logo.png" alt="WME" style="height: 40px; opacity: 0.6; margin-bottom: 1.25rem;" />
+        <h1 style="color: #111827; font-size: 1.25rem; font-weight: 700; margin-bottom: 0.25rem;">First Time Setup</h1>
+        <p style="color: #6b7280; font-size: 0.8125rem;">Create your admin account to get started</p>
+      </div>
+
+      {error && (
+        <div style="background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); border-radius: 0.5rem; padding: 0.75rem 1rem; margin-bottom: 1.25rem; color: #f87171; font-size: 0.8125rem;">
+          {error === 'mismatch' && 'Passwords do not match.'}
+          {error === 'short' && 'Password must be at least 8 characters.'}
+          {error === 'missing' && 'All fields are required.'}
+        </div>
+      )}
+
+      {success && (
+        <div style="background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); border-radius: 0.5rem; padding: 0.75rem 1rem; margin-bottom: 1.25rem; color: #34d399; font-size: 0.8125rem;">
+          Account created! <a href="/admin/login" style="color: #34d399; text-decoration: underline;">Sign in now →</a>
+        </div>
+      )}
+
+      <form method="POST" action="/api/setup">
+        <div style="margin-bottom: 1rem;">
+          <label class="admin-label">Username</label>
+          <input type="text" name="username" required autocomplete="username" class="admin-input" placeholder="Choose a username" />
+        </div>
+        <div style="margin-bottom: 1rem;">
+          <label class="admin-label">Password</label>
+          <input type="password" name="password" required autocomplete="new-password" minlength="8" class="admin-input" placeholder="At least 8 characters" />
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+          <label class="admin-label">Confirm Password</label>
+          <input type="password" name="password_confirm" required autocomplete="new-password" class="admin-input" placeholder="Type it again" />
+        </div>
+
+        <button type="submit" class="admin-btn admin-btn-primary" style="width: 100%; justify-content: center;">
+          Create Admin Account
+        </button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

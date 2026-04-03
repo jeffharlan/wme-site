@@ -1,0 +1,65 @@
+---
+export const prerender = false;
+
+import AdminLayout from '../../../../components/admin/AdminLayout.astro';
+import { db } from '../../../../lib/db';
+import { events, formFields, registrations } from '../../../../lib/schema';
+import { eq, asc, desc } from 'drizzle-orm';
+
+const { id } = Astro.params;
+const event = (await db.select().from(events).where(eq(events.id, id!)).limit(1))[0];
+if (!event) return Astro.redirect('/admin/events');
+
+const fields = await db.select().from(formFields).where(eq(formFields.eventId, id!)).orderBy(asc(formFields.sortOrder));
+const regs = await db.select().from(registrations).where(eq(registrations.eventId, id!)).orderBy(desc(registrations.createdAt));
+---
+
+<AdminLayout title={`Registrations: ${event.title}`} activeNav="events">
+  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
+    <div>
+      <a href={`/admin/events/${id}`} style="color: #6b7280; font-size: 0.8125rem; text-decoration: none;">← Back to event</a>
+      <p style="color: #374151; font-size: 0.875rem; margin-top: 0.25rem;">{regs.length} registration{regs.length !== 1 ? 's' : ''}</p>
+    </div>
+    {regs.length > 0 && (
+      <a href={`/api/registrations/${id}/export`} class="admin-btn admin-btn-ghost" style="font-size: 0.8125rem;">
+        Export CSV
+      </a>
+    )}
+  </div>
+
+  {regs.length === 0 ? (
+    <div class="admin-card" style="text-align: center; padding: 3rem;">
+      <p style="color: #6b7280;">No registrations yet.</p>
+    </div>
+  ) : (
+    <div class="admin-card" style="overflow-x: auto;">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            {fields.map(f => <th>{f.label}</th>)}
+            <th>Date</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {regs.map((reg, i) => {
+            const data = JSON.parse(reg.data);
+            return (
+              <tr>
+                <td>{regs.length - i}</td>
+                {fields.map(f => <td>{data[f.id] || '—'}</td>)}
+                <td style="white-space: nowrap;">{new Date(reg.createdAt!).toLocaleDateString()}</td>
+                <td>
+                  <form method="POST" action={`/api/registrations/${id}?action=delete&reg_id=${reg.id}`} style="margin: 0;" onsubmit="return confirm('Delete this registration?')">
+                    <button type="submit" style="background: none; border: none; color: #9ca3af; cursor: pointer; font-size: 0.75rem;">✕</button>
+                  </form>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  )}
+</AdminLayout>

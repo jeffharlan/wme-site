@@ -1,13 +1,14 @@
 ---
 const navLinks = [
-  { label: 'About', href: '#about' },
-  { label: 'Impact', href: '#impact' },
-  { label: 'INSTAR', href: '#instar' },
-  { label: 'Regions', href: '#regions' },
-  { label: 'Team', href: '#team' },
-  { label: 'Events', href: '#events' },
-  { label: 'Prayer', href: '#prayer' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/#about' },
+  { label: 'Impact', href: '/#impact' },
+  { label: 'INSTAR', href: '/#instar' },
+  { label: 'Regions', href: '/#regions' },
+  { label: 'Team', href: '/#team' },
+  { label: 'Events', href: '/#events' },
+  { label: 'Prayer', href: '/#prayer' },
+  { label: 'Contact', href: '/#contact' },
 ];
 ---
 
@@ -15,7 +16,7 @@ const navLinks = [
   <div class="section-container">
     <div class="flex items-center justify-between h-20">
       <!-- Logo -->
-      <a href="#" class="flex items-center gap-3 group">
+      <a href="/" class="flex items-center gap-3 group">
         <img src="/images/wme-logo.png" alt="World Missions & Evangelism" class="h-9 brightness-0 invert opacity-90 transition-opacity duration-300 group-hover:opacity-100" />
       </a>
 
@@ -26,7 +27,7 @@ const navLinks = [
             {link.label}
           </a>
         ))}
-        <a href="#give" class="ml-4 btn-primary !py-2.5 !px-6 !text-[13px]">
+        <a href="/#give" class="ml-4 btn-primary !py-2.5 !px-6 !text-[13px]">
           Partner With Us
         </a>
       </div>
@@ -51,7 +52,7 @@ const navLinks = [
           {link.label}
         </a>
       ))}
-      <a href="#give" class="block mt-4 btn-primary text-center !text-sm">Partner With Us</a>
+      <a href="/#give" class="block mt-4 btn-primary text-center !text-sm">Partner With Us</a>
     </div>
   </div>
 </nav>

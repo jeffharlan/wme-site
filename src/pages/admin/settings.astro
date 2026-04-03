@@ -1,0 +1,81 @@
+---
+export const prerender = false;
+
+import AdminLayout from '../../components/admin/AdminLayout.astro';
+import { db } from '../../lib/db';
+import { settings, adminUsers } from '../../lib/schema';
+import { eq } from 'drizzle-orm';
+
+const user = Astro.locals.user!;
+const adminUser = (await db.select().from(adminUsers).where(eq(adminUsers.id, user.userId)).limit(1))[0];
+
+// Get current settings (non-sensitive display)
+const allSettings = await db.select().from(settings);
+const settingsMap = Object.fromEntries(allSettings.map(s => [s.key, s.value]));
+
+const hasApiKey = !!settingsMap['smtp2go_api_key'];
+const senderEmail = settingsMap['smtp2go_sender_email'] || '';
+const senderName = settingsMap['smtp2go_sender_name'] || '';
+
+const message = Astro.url.searchParams.get('msg');
+---
+
+<AdminLayout title="Settings" activeNav="settings">
+  {message === 'smtp_saved' && (
+    <div style="background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); border-radius: 0.5rem; padding: 0.75rem 1rem; margin-bottom: 1.25rem; color: #34d399; font-size: 0.8125rem;">SMTP2GO settings saved.</div>
+  )}
+  {message === 'totp_enabled' && (
+    <div style="background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); border-radius: 0.5rem; padding: 0.75rem 1rem; margin-bottom: 1.25rem; color: #34d399; font-size: 0.8125rem;">Two-factor authentication enabled.</div>
+  )}
+  {message === 'totp_disabled' && (
+    <div style="background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); border-radius: 0.5rem; padding: 0.75rem 1rem; margin-bottom: 1.25rem; color: #34d399; font-size: 0.8125rem;">Two-factor authentication disabled.</div>
+  )}
+  {message === 'totp_invalid' && (
+    <div style="background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); border-radius: 0.5rem; padding: 0.75rem 1rem; margin-bottom: 1.25rem; color: #f87171; font-size: 0.8125rem;">Invalid 2FA code. Please try again.</div>
+  )}
+
+  <div style="display: grid; gap: 1.5rem; max-width: 600px;">
+    <!-- SMTP2GO Settings -->
+    <form method="POST" action="/api/settings" class="admin-card">
+      <h2 style="color: #111827; font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem;">Email (SMTP2GO)</h2>
+      <p style="color: #6b7280; font-size: 0.8125rem; margin-bottom: 1.25rem;">Configure your SMTP2GO credentials to send emails to registrants.</p>
+
+      <div style="margin-bottom: 1rem;">
+        <label class="admin-label">API Key {hasApiKey && <span style="color: #34d399;">&#10003; configured</span>}</label>
+        <input type="password" name="smtp2go_api_key" class="admin-input" placeholder={hasApiKey ? '••••••••• (enter new key to replace)' : 'Enter your SMTP2GO API key'} />
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.25rem;">
+        <div>
+          <label class="admin-label">Sender Email</label>
+          <input type="email" name="smtp2go_sender_email" value={senderEmail} class="admin-input" placeholder="noreply@domain.com" />
+        </div>
+        <div>
+          <label class="admin-label">Sender Name</label>
+          <input type="text" name="smtp2go_sender_name" value={senderName} class="admin-input" placeholder="World Missions & Evangelism" />
+        </div>
+      </div>
+      <button type="submit" class="admin-btn admin-btn-primary">Save Email Settings</button>
+    </form>
+
+    <!-- Two-Factor Authentication -->
+    <div class="admin-card">
+      <h2 style="color: #111827; font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem;">Two-Factor Authentication</h2>
+      <p style="color: #6b7280; font-size: 0.8125rem; margin-bottom: 1.25rem;">
+        Add an extra layer of security using Google Authenticator or any TOTP app.
+      </p>
+
+      {adminUser?.totpEnabled ? (
+        <div>
+          <p style="color: #34d399; font-size: 0.875rem; margin-bottom: 1rem;">&#10003; 2FA is enabled</p>
+          <form method="POST" action="/api/auth/totp-setup?action=disable" onsubmit="return confirm('Disable two-factor authentication?')">
+            <button type="submit" class="admin-btn admin-btn-danger" style="font-size: 0.8125rem;">Disable 2FA</button>
+          </form>
+        </div>
+      ) : (
+        <form method="POST" action="/api/auth/totp-setup">
+          <button type="submit" class="admin-btn admin-btn-primary">Set Up 2FA</button>
+        </form>
+      )}
+    </div>
+  </div>
+</AdminLayout>

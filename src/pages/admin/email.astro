@@ -1,0 +1,61 @@
+---
+export const prerender = false;
+
+import AdminLayout from '../../components/admin/AdminLayout.astro';
+import { db } from '../../lib/db';
+import { events, registrations } from '../../lib/schema';
+import { eq, desc, count } from 'drizzle-orm';
+
+const allEvents = await db.select().from(events).where(eq(events.isActive, true)).orderBy(desc(events.createdAt));
+const regCounts = await db.select({ eventId: registrations.eventId, count: count() }).from(registrations).groupBy(registrations.eventId);
+const regMap = Object.fromEntries(regCounts.map(r => [r.eventId, r.count]));
+
+const message = Astro.url.searchParams.get('msg');
+const sentCount = Astro.url.searchParams.get('sent');
+---
+
+<AdminLayout title="Send Email" activeNav="email">
+  {message === 'sent' && (
+    <div style="background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); border-radius: 0.5rem; padding: 0.75rem 1rem; margin-bottom: 1.25rem; color: #34d399; font-size: 0.8125rem;">
+      Email sent to {sentCount} recipient{sentCount !== '1' ? 's' : ''}.
+    </div>
+  )}
+  {message === 'no_config' && (
+    <div style="background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); border-radius: 0.5rem; padding: 0.75rem 1rem; margin-bottom: 1.25rem; color: #f87171; font-size: 0.8125rem;">
+      SMTP2GO is not configured. <a href="/admin/settings" style="color: #f87171; text-decoration: underline;">Go to Settings →</a>
+    </div>
+  )}
+  {message === 'error' && (
+    <div style="background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); border-radius: 0.5rem; padding: 0.75rem 1rem; margin-bottom: 1.25rem; color: #f87171; font-size: 0.8125rem;">
+      Failed to send email. Check your SMTP2GO settings.
+    </div>
+  )}
+
+  <div style="max-width: 700px;">
+    <form method="POST" action="/api/email/send" class="admin-card">
+      <div style="margin-bottom: 1.25rem;">
+        <label class="admin-label">Send To (Event Registrants)</label>
+        <select name="event_id" required class="admin-input admin-select">
+          <option value="">Select an event...</option>
+          {allEvents.map(event => (
+            <option value={event.id}>{event.title} ({regMap[event.id] || 0} registrants)</option>
+          ))}
+        </select>
+      </div>
+
+      <div style="margin-bottom: 1.25rem;">
+        <label class="admin-label">Subject</label>
+        <input type="text" name="subject" required class="admin-input" placeholder="Email subject line" />
+      </div>
+
+      <div style="margin-bottom: 1.25rem;">
+        <label class="admin-label">Message (HTML supported)</label>
+        <textarea name="html_body" required rows="10" class="admin-input" style="resize: vertical; font-family: monospace; font-size: 0.8125rem;" placeholder="Write your email content here..."></textarea>
+      </div>
+
+      <div style="display: flex; gap: 0.75rem;">
+        <button type="submit" class="admin-btn admin-btn-primary">Send Email</button>
+      </div>
+    </form>
+  </div>
+</AdminLayout>
