@@ -1,25 +1,51 @@
 ---
+const images = [
+  { src: '/images/missionary-teaching.jpg', alt: 'Teaching in the field' },
+  { src: '/images/keith-juanita.jpg', alt: 'Keith and Juanita' },
+  { src: '/images/palabra-vida.jpg', alt: 'Palabra de Vida ministry' },
+  { src: '/images/missionary-goodnight.jpg', alt: 'Building in Africa' },
+  { src: '/images/missionary-crowder.jpg', alt: 'Crowder mission work' },
+  { src: '/images/campo-mission.jpg', alt: 'Campo mission' },
+];
+
+const particles = Array.from({length: 25}, (_, i) => ({
+  left: Math.random() * 100,
+  delay: Math.random() * 12,
+  duration: 10 + Math.random() * 15,
+  size: 1 + Math.random() * 2.5,
+  opacity: 0.15 + Math.random() * 0.4,
+}));
 ---
 
 <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
-  <!-- Background image collage with overlay -->
+  <!-- Crossfading Slideshow Background -->
   <div class="absolute inset-0">
-    <div class="absolute inset-0 grid grid-cols-3 grid-rows-2 opacity-40">
-      <div class="overflow-hidden"><img src="/images/missionary-teaching.jpg" alt="" class="img-cinematic" loading="eager" /></div>
-      <div class="overflow-hidden"><img src="/images/keith-juanita.jpg" alt="" class="img-cinematic" loading="eager" /></div>
-      <div class="overflow-hidden"><img src="/images/palabra-vida.jpg" alt="" class="img-cinematic" loading="eager" /></div>
-      <div class="overflow-hidden"><img src="/images/missionary-goodnight.jpg" alt="" class="img-cinematic" loading="eager" /></div>
-      <div class="overflow-hidden"><img src="/images/missionary-crowder.jpg" alt="" class="img-cinematic" loading="eager" /></div>
-      <div class="overflow-hidden"><img src="/images/campo-mission.jpg" alt="" class="img-cinematic" loading="eager" /></div>
-    </div>
-    <!-- Gradient overlay for depth — keeps text readable while showing images -->
-    <div class="absolute inset-0 bg-gradient-to-b from-surface-0/70 via-surface-0/50 to-surface-0/80"></div>
-    <div class="absolute inset-0 bg-gradient-to-r from-surface-0/40 via-transparent to-surface-0/40"></div>
+    {images.map((img, i) => (
+      <div class="hero-slide">
+        <img src={img.src} alt="" loading={i === 0 ? 'eager' : 'lazy'} />
+      </div>
+    ))}
+    <!-- Cinematic overlays -->
+    <div class="absolute inset-0 bg-gradient-to-b from-surface-0/60 via-surface-0/40 to-surface-0/70"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-surface-0/50 via-transparent to-surface-0/50"></div>
+    <!-- Vignette -->
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse at center, transparent 40%, rgba(10, 15, 26, 0.6) 100%);"></div>
+  </div>
+
+  <!-- Floating Particles -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+    {particles.map((p) => (
+      <div
+        class="particle"
+        style={`left: ${p.left}%; width: ${p.size}px; height: ${p.size}px; opacity: ${p.opacity}; animation-delay: ${p.delay}s; animation-duration: ${p.duration}s;`}
+      />
+    ))}
   </div>
 
   <!-- Ambient glow -->
-  <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-30"
-       style="background: radial-gradient(circle, rgba(212, 160, 23, 0.15) 0%, transparent 70%);"></div>
+  <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full opacity-40"
+       style="background: radial-gradient(circle, rgba(212, 160, 23, 0.12) 0%, transparent 70%);"
+       data-parallax="-0.1"></div>
 
   <!-- Content -->
   <div class="relative z-10 section-container text-center pt-20">
@@ -29,19 +55,23 @@
       <span class="text-white/50 text-[13px] font-medium tracking-wide">Since 1988 &mdash; Active across 5 continents</span>
     </div>
 
-    <!-- Main heading -->
-    <h1 class="heading-display text-white max-w-4xl mx-auto mb-8" style="animation: fadeUp 0.8s ease-out 0.4s both;">
-      Planting Churches.<br />
-      <span class="gradient-text">Changing Nations.</span>
+    <!-- Main heading with word-by-word reveal -->
+    <h1 class="heading-display text-white max-w-4xl mx-auto mb-8" style="animation: heroTextReveal 1s ease-out 0.4s both;">
+      <span class="block overflow-hidden">
+        <span class="inline-block hero-line" style="animation: lineSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;">Planting Churches.</span>
+      </span>
+      <span class="block overflow-hidden">
+        <span class="inline-block hero-line gradient-text" style="animation: lineSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;">Changing Nations.</span>
+      </span>
     </h1>
 
     <!-- Subheading -->
-    <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-12 font-light leading-relaxed" style="animation: fadeUp 0.8s ease-out 0.6s both;">
+    <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-12 font-light leading-relaxed" style="animation: fadeUp 0.8s ease-out 0.9s both;">
       World Missions & Evangelism facilitates disciple-making movements and church planting across five continents, transforming communities one life at a time.
     </p>
 
     <!-- CTAs -->
-    <div class="flex flex-col sm:flex-row gap-4 justify-center mb-20" style="animation: fadeUp 0.8s ease-out 0.8s both;">
+    <div class="flex flex-col sm:flex-row gap-4 justify-center mb-20" style="animation: fadeUp 0.8s ease-out 1.1s both;">
       <a href="#about" class="btn-primary text-base">
         Discover Our Story
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -54,7 +84,7 @@
     </div>
 
     <!-- Impact stats strip -->
-    <div class="glass-card p-1 rounded-2xl max-w-3xl mx-auto" style="animation: fadeUp 0.8s ease-out 1s both;">
+    <div class="glass-card p-1 rounded-2xl max-w-3xl mx-auto shimmer" style="animation: fadeUp 0.8s ease-out 1.3s both;">
       <div class="grid grid-cols-3 divide-x divide-white/[0.06]">
         <div class="py-6 px-4 text-center">
           <div class="text-2xl md:text-3xl font-extrabold text-white tracking-tight">6,132<span class="text-amber-400">+</span></div>
@@ -73,20 +103,31 @@
   </div>
 
   <!-- Scroll indicator -->
-  <div class="absolute bottom-10 left-1/2 -translate-x-1/2" style="animation: fadeIn 1.5s ease-out 1.5s both;">
-    <div class="w-5 h-8 rounded-full border border-white/20 flex justify-center pt-1.5">
-      <div class="w-1 h-2 rounded-full bg-white/40 animate-bounce"></div>
+  <div class="absolute bottom-10 left-1/2 -translate-x-1/2" style="animation: fadeIn 1.5s ease-out 2s both;">
+    <div class="flex flex-col items-center gap-2">
+      <span class="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/20">Scroll</span>
+      <div class="w-5 h-8 rounded-full border border-white/20 flex justify-center pt-1.5">
+        <div class="w-1 h-2 rounded-full bg-amber-400/60 animate-bounce"></div>
+      </div>
     </div>
   </div>
 </section>
 
 <style>
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
+    from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
   }
   @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
+  }
+  @keyframes heroTextReveal {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes lineSlideUp {
+    from { opacity: 0; transform: translateY(100%); }
+    to { opacity: 1; transform: translateY(0); }
   }
 </style>

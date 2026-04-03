@@ -16,7 +16,7 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#102a43" />
+    <meta name="theme-color" content="#0a0f1a" />
     <link rel="icon" type="image/png" href="/images/wme-logo.png" />
 
     <!-- Open Graph -->
@@ -32,11 +32,168 @@ const {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
   <body class="antialiased">
-    <div class="mesh-bg" aria-hidden="true"></div>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scroll-progress" style="transform: scaleX(0);"></div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-ring" id="cursor-ring"></div>
+
+    <!-- Film Grain Overlay -->
+    <svg class="film-grain" aria-hidden="true">
+      <filter id="grain-filter">
+        <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
+      </filter>
+      <rect width="100%" height="100%" filter="url(#grain-filter)" />
+    </svg>
+
+    <!-- Mouse-Following Spotlight -->
+    <div class="mouse-spotlight" id="mouse-spotlight" aria-hidden="true"></div>
+
+    <!-- Morphing Background Blobs -->
+    <div class="mesh-bg" aria-hidden="true">
+      <div class="morph-blob morph-blob-1"></div>
+      <div class="morph-blob morph-blob-2"></div>
+      <div class="morph-blob morph-blob-3"></div>
+    </div>
+
     <slot />
 
-    <!-- Scroll reveal observer -->
     <script>
+      // ===== CUSTOM CURSOR =====
+      const cursorDot = document.getElementById('cursor-dot');
+      const cursorRing = document.getElementById('cursor-ring');
+      let mouseX = 0, mouseY = 0;
+      let ringX = 0, ringY = 0;
+
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        if (cursorDot) {
+          cursorDot.style.left = mouseX + 'px';
+          cursorDot.style.top = mouseY + 'px';
+        }
+        // Update spotlight CSS vars
+        document.documentElement.style.setProperty('--mouse-x', mouseX + 'px');
+        document.documentElement.style.setProperty('--mouse-y', mouseY + 'px');
+      });
+
+      // Smooth follow for ring
+      function animateCursorRing() {
+        ringX += (mouseX - ringX) * 0.15;
+        ringY += (mouseY - ringY) * 0.15;
+        if (cursorRing) {
+          cursorRing.style.left = ringX + 'px';
+          cursorRing.style.top = ringY + 'px';
+        }
+        requestAnimationFrame(animateCursorRing);
+      }
+      animateCursorRing();
+
+      // Hover state for interactive elements
+      document.querySelectorAll('a, button, [role="button"], input, textarea').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          cursorDot?.classList.add('hovering');
+          cursorRing?.classList.add('hovering');
+        });
+        el.addEventListener('mouseleave', () => {
+          cursorDot?.classList.remove('hovering');
+          cursorRing?.classList.remove('hovering');
+        });
+      });
+
+      // Hide cursor when it leaves the window
+      document.addEventListener('mouseleave', () => {
+        if (cursorDot) cursorDot.style.opacity = '0';
+        if (cursorRing) cursorRing.style.opacity = '0';
+      });
+      document.addEventListener('mouseenter', () => {
+        if (cursorDot) cursorDot.style.opacity = '1';
+        if (cursorRing) cursorRing.style.opacity = '1';
+      });
+
+
+      // ===== SCROLL PROGRESS BAR =====
+      const scrollProgress = document.getElementById('scroll-progress');
+      function updateScrollProgress() {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+        if (scrollProgress) {
+          scrollProgress.style.transform = `scaleX(${progress})`;
+        }
+      }
+      window.addEventListener('scroll', updateScrollProgress, { passive: true });
+
+
+      // ===== MAGNETIC BUTTONS =====
+      document.querySelectorAll('.btn-primary, .btn-ghost').forEach(btn => {
+        btn.addEventListener('mousemove', (e: MouseEvent) => {
+          const el = btn as HTMLElement;
+          const rect = el.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          el.style.transform = `translate(${x * 0.12}px, ${y * 0.12}px)`;
+        });
+        btn.addEventListener('mouseleave', () => {
+          const el = btn as HTMLElement;
+          el.style.transform = '';
+        });
+      });
+
+
+      // ===== 3D TILT CARDS =====
+      document.querySelectorAll('[data-tilt]').forEach(card => {
+        card.addEventListener('mousemove', (e: Event) => {
+          const el = card as HTMLElement;
+          const evt = e as MouseEvent;
+          const rect = el.getBoundingClientRect();
+          const x = (evt.clientX - rect.left) / rect.width;
+          const y = (evt.clientY - rect.top) / rect.height;
+          const rotateX = (y - 0.5) * -12;
+          const rotateY = (x - 0.5) * 12;
+          el.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+        });
+        card.addEventListener('mouseleave', () => {
+          const el = card as HTMLElement;
+          el.style.transform = 'perspective(800px) rotateX(0) rotateY(0) scale(1)';
+        });
+      });
+
+
+      // ===== TEXT REVEAL (word-by-word) =====
+      document.querySelectorAll('[data-text-reveal]').forEach(el => {
+        const htmlEl = el as HTMLElement;
+        const html = htmlEl.innerHTML;
+        // Split text nodes into words while preserving HTML tags
+        const words = html.split(/(\s+)/);
+        let wordIndex = 0;
+        htmlEl.innerHTML = words.map(segment => {
+          if (segment.match(/^\s+$/)) return segment;
+          if (segment.startsWith('<') && segment.endsWith('>')) return segment;
+          wordIndex++;
+          return `<span class="word" style="transition-delay: ${wordIndex * 0.06}s">${segment}</span>`;
+        }).join('');
+      });
+
+
+      // ===== PARALLAX ELEMENTS =====
+      function updateParallax() {
+        const scrollY = window.scrollY;
+        document.querySelectorAll('[data-parallax]').forEach(el => {
+          const htmlEl = el as HTMLElement;
+          const speed = parseFloat(htmlEl.getAttribute('data-parallax') || '0.1');
+          const rect = htmlEl.getBoundingClientRect();
+          const center = rect.top + rect.height / 2;
+          const viewCenter = window.innerHeight / 2;
+          const offset = (center - viewCenter) * speed;
+          htmlEl.style.transform = `translateY(${offset}px)`;
+        });
+      }
+      window.addEventListener('scroll', updateParallax, { passive: true });
+
+
+      // ===== SCROLL REVEAL OBSERVER =====
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
@@ -45,26 +202,33 @@ const {
             }
           });
         },
-        { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+        { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
       );
 
-      document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .stagger').forEach((el) => {
+      document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .stagger, .clip-reveal, .clip-reveal-left, [data-text-reveal], .counter-reveal').forEach((el) => {
         observer.observe(el);
       });
 
-      // Counter animation
+
+      // ===== COUNTER ANIMATION (spring physics) =====
+      function easeOutElastic(t: number): number {
+        const c4 = (2 * Math.PI) / 3;
+        return t === 0 ? 0 : t === 1 ? 1 : Math.pow(2, -10 * t) * Math.sin((t * 10 - 0.75) * c4) + 1;
+      }
+
       function animateCounters() {
         document.querySelectorAll('[data-count]').forEach((el) => {
           const target = parseInt(el.getAttribute('data-count') || '0');
-          const duration = 2000;
+          const suffix = el.getAttribute('data-suffix') || '';
+          const duration = 2500;
           const start = performance.now();
 
           function update(now: number) {
             const elapsed = now - start;
             const progress = Math.min(elapsed / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 3);
+            const eased = 1 - Math.pow(1 - progress, 4);
             const current = Math.floor(eased * target);
-            el.textContent = current.toLocaleString() + (el.getAttribute('data-suffix') || '');
+            el.textContent = current.toLocaleString() + suffix;
             if (progress < 1) requestAnimationFrame(update);
           }
           requestAnimationFrame(update);

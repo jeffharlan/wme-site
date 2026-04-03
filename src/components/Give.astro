@@ -8,14 +8,14 @@ const options = [
 ---
 
 <section id="give" class="py-28 md:py-36 relative">
+  <div class="section-number" aria-hidden="true">08</div>
   <div class="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-amber-500/20 to-transparent"></div>
 
   <div class="section-narrow">
     <div class="text-center mb-16 reveal">
       <div class="label-text mb-5">Partner With Us</div>
-      <h2 class="heading-section text-white mb-4">
-        Your generosity<br />
-        <span class="gradient-text">changes lives.</span>
+      <h2 class="heading-section text-white mb-4" data-text-reveal>
+        Your generosity changes lives.
       </h2>
       <p class="body-md max-w-xl mx-auto">
         Every dollar goes directly toward planting churches, training leaders,
@@ -25,7 +25,7 @@ const options = [
 
     <div class="grid md:grid-cols-2 gap-3 mb-12 stagger">
       {options.map((opt) => (
-        <div class="floating-card-hover p-6 group">
+        <div class="floating-card-hover p-6 group glow-border" data-tilt>
           <div class="flex items-start gap-4">
             <div class="w-10 h-10 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center flex-shrink-0 group-hover:bg-amber-500/20 transition-colors">
               <Fragment set:html={opt.icon} />

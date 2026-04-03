@@ -1,0 +1,30 @@
+---
+const items = [
+  '6,132+ Churches Planted',
+  '23,000+ Lives Committed to Christ',
+  '18,000+ Baptisms Worldwide',
+  '34,000+ Total Participants',
+  '50+ Denominations Trained',
+  '1,400+ People Groups Targeted',
+  '5 Continents Reached',
+  'Founded 1988',
+  'INSTAR Church Planting Movement',
+];
+---
+
+<div class="py-5 border-y border-white/[0.04] relative overflow-hidden">
+  <div class="marquee-container">
+    <div class="marquee-track">
+      {[1, 2].map(() => (
+        <div class="flex items-center shrink-0">
+          {items.map((item) => (
+            <Fragment>
+              <span class="text-white/15 text-sm font-medium tracking-wide uppercase whitespace-nowrap px-6">{item}</span>
+              <span class="text-amber-400/20 text-xs px-2">&#10022;</span>
+            </Fragment>
+          ))}
+        </div>
+      ))}
+    </div>
+  </div>
+</div>

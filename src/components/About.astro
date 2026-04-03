@@ -2,29 +2,32 @@
 ---
 
 <section id="about" class="py-28 md:py-36 relative">
-  <div class="section-container">
+  <!-- Section number watermark -->
+  <div class="section-number" aria-hidden="true">01</div>
+
+  <div class="section-container relative z-10">
     <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-      <!-- Left: Photo mosaic -->
-      <div class="reveal-left">
+      <!-- Left: Photo mosaic with clip-path reveals -->
+      <div class="relative">
         <div class="grid grid-cols-12 grid-rows-6 gap-3 h-[500px]">
           <!-- Main large image -->
-          <div class="col-span-7 row-span-4 rounded-xl overflow-hidden">
+          <div class="col-span-7 row-span-4 rounded-xl overflow-hidden clip-reveal">
             <img src="/images/missionary-teaching.jpg" alt="Teaching in the field" class="img-cinematic rounded-xl" />
           </div>
           <!-- Top right -->
-          <div class="col-span-5 row-span-3 rounded-xl overflow-hidden">
+          <div class="col-span-5 row-span-3 rounded-xl overflow-hidden clip-reveal-left" style="transition-delay: 0.2s;">
             <img src="/images/palabra-vida.jpg" alt="Palabra de Vida, Bolivia" class="img-cinematic rounded-xl" />
           </div>
           <!-- Bottom left -->
-          <div class="col-span-5 row-span-2 rounded-xl overflow-hidden">
+          <div class="col-span-5 row-span-2 rounded-xl overflow-hidden clip-reveal" style="transition-delay: 0.4s;">
             <img src="/images/missionary-goodnight.jpg" alt="Building in Africa" class="img-cinematic rounded-xl" />
           </div>
           <!-- Bottom center -->
-          <div class="col-span-4 row-span-3 rounded-xl overflow-hidden">
+          <div class="col-span-4 row-span-3 rounded-xl overflow-hidden clip-reveal-left" style="transition-delay: 0.6s;">
             <img src="/images/keith-juanita.jpg" alt="Keith & Juanita" class="img-cinematic rounded-xl" />
           </div>
           <!-- Bottom right -->
-          <div class="col-span-3 row-span-3 rounded-xl overflow-hidden relative">
+          <div class="col-span-3 row-span-3 rounded-xl overflow-hidden relative clip-reveal" style="transition-delay: 0.8s;">
             <img src="/images/campo-mission.jpg" alt="Mission campo" class="img-cinematic rounded-xl" />
             <div class="absolute inset-0 bg-gradient-to-t from-surface-0/60 to-transparent rounded-xl"></div>
           </div>
@@ -34,10 +37,8 @@
       <!-- Right: Story -->
       <div class="reveal-right">
         <div class="label-text mb-5">Our Story</div>
-        <h2 class="heading-section text-white mb-8">
-          One missionary.<br />
-          One dream.<br />
-          <span class="gradient-text">A global movement.</span>
+        <h2 class="heading-section text-white mb-8" data-text-reveal>
+          One missionary. One dream. A global movement.
         </h2>
 
         <div class="space-y-5 body-md">
@@ -53,8 +54,8 @@
           </p>
         </div>
 
-        <!-- Quote -->
-        <div class="floating-card p-6 mt-8 relative overflow-hidden">
+        <!-- Quote with parallax -->
+        <div class="floating-card p-6 mt-8 relative overflow-hidden shimmer" data-parallax="0.03">
           <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-amber-400 to-amber-600"></div>
           <p class="text-white/80 italic font-display text-lg leading-relaxed pl-5">
             "I knew, beyond a shadow of a doubt, that a church planting ministry was the strategy."
