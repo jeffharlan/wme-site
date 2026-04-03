@@ -1,10 +1,16 @@
 name: wme-site
 region: nyc
-static_sites:
+services:
   - name: wme
-    build_command: npm install && npx astro build
-    output_dir: dist
+    build_command: npm install && npm run build
+    run_command: npm start
     source_dir: /
     environment_slug: node-js
+    http_port: 8080
+    instance_count: 1
+    instance_size_slug: apps-s-1vcpu-0.5gb
     routes:
       - path: /
+    envs:
+      - key: PORT
+        value: "8080"
